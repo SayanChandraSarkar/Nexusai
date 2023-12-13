@@ -95,3 +95,60 @@ overlay.addEventListener("click", (event) => {
     videoFrame.src = "";
   }
 });
+// ==================Nabbar============================
+document.addEventListener("DOMContentLoaded", function () {
+  const navbarLinks = document.querySelectorAll("#navbar a");
+  const menuIcon = document.getElementById("menu-icon");
+  const navbar = document.getElementById("navbar");
+  const overlay = document.getElementById("overlay");
+
+  navbarLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      smoothScroll.call(this);
+      toggleActiveClass();
+      closeMenu();
+    });
+  });
+
+  menuIcon.addEventListener("click", function () {
+    console.log("clicked");
+    navbar.classList.toggle("active");
+
+    toggleOverlay();
+  });
+
+  overlay.addEventListener("click", function () {
+    closeMenu();
+  });
+
+  // function toggleActiveClass() {
+  //   navbarLinks.forEach((link) => {
+  //     link.classList.remove("active");
+  //   });
+
+  //   this.classList.add("active");
+  // }
+
+  function closeMenu() {
+    navbar.classList.remove("active");
+    overlay.style.opacity = "0";
+    setTimeout(() => {
+      overlay.style.display = "none";
+    }, 300); // Matches the transition duration
+  }
+
+  function toggleOverlay() {
+    if (navbar.classList.contains("active")) {
+      overlay.style.display = "block";
+      setTimeout(() => {
+        overlay.style.opacity = "1";
+      }, 10); // Adding a small delay for display to take effect
+    } else {
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 300); // Matches the transition duration
+    }
+  }
+});
